@@ -2,9 +2,9 @@
 
 namespace StarterProject.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]/[action]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class HomeController : ControllerBase
     {
         [HttpGet]
         public IActionResult get()
