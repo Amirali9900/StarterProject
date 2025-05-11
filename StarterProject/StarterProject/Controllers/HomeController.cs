@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StarterProject.Models;
 
 namespace StarterProject.Controllers
 {
@@ -6,24 +7,37 @@ namespace StarterProject.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult get()
+        private readonly IDataRepository _dataRepository;
+
+        public HomeController(IDataRepository dataRepository)
         {
-            //get all data from user table
+            _dataRepository = dataRepository;
+        }
 
+        [HttpGet]
+        public IActionResult GetAllData()
+        {
+            var DataUser = _dataRepository.GetAllData();
+            return Ok(DataUser);
+        }
 
-
-            return Ok(/*return your data in here*/);
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var DataId = _dataRepository.GetById(id);
+            if (DataId == null) 
+                return NotFound();
+            return Ok(DataId);
         }
 
         [HttpPost]
-        public IActionResult post(/*get you viewmodel*/)
+        public IActionResult AddData([FromBody] DataModel dataModel)
         {
-            //create a data in user table
+            if (dataModel == null)
+                return BadRequest();
 
-
-
-            return Ok(/*return the created data*/);
+            _dataRepository.AddData(dataModel);
+            return CreatedAtAction(nameof(GetById), new { id = dataModel.UserId }, dataModel);
         }
     }
 }
