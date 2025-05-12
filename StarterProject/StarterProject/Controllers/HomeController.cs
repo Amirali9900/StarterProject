@@ -3,7 +3,7 @@ using StarterProject.Models;
 
 namespace StarterProject.Controllers
 {
-    [Route("api/v1/[controller]/[action]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
     {
@@ -17,15 +17,20 @@ namespace StarterProject.Controllers
         [HttpGet]
         public IActionResult GetAllData()
         {
-            var DataUser = _dataRepository.GetAllData();
-            return Ok(DataUser);
+
+            return Ok(_dataRepository.GetAllData().Select(p => new DataModel
+            {
+                UserId = p.UserId,
+                NameUser = p.NameUser,
+                Price = p.Price
+            }));
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var DataId = _dataRepository.GetById(id);
-            if (DataId == null) 
+            if (DataId == null)
                 return NotFound();
             return Ok(DataId);
         }
@@ -33,7 +38,7 @@ namespace StarterProject.Controllers
         [HttpPost]
         public IActionResult AddData([FromBody] DataModel dataModel)
         {
-            if (dataModel == null)
+            if (dataModel == null || !ModelState.IsValid)
                 return BadRequest();
 
             _dataRepository.AddData(dataModel);

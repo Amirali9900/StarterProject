@@ -5,9 +5,10 @@ namespace StarterProject.Models
     {
         private readonly List<DataModel> _dataRepository = new();
 
+        private int _nextId = 1;
         public void AddData(DataModel dataModel)
         {
-            dataModel.UserId = _dataRepository.Count + 1;
+            dataModel.UserId = _nextId++;
             _dataRepository.Add(dataModel);
         }
 

@@ -1,20 +1,20 @@
-//[
-//  {
-//    "name": "Alex C",
-//    "age": 2,
-//    "city": "Houston"
-//  },
+[
+  {
+    "NameUser": "Alex C",
+    "UserId": 2,
+    "Price": 100
+  },
 
-//  {
-//    "name": "John G",
-//    "age": 40,
-//    "city": "Washington"
-//  },
+  {
+    "NameUser": "John G",
+    "UserId": 40,
+    "Price": 200
+  },
 
-//  {
-//    "name": "Bala T",
-//    "age": 22,s
-//    "city": "Bangalore"
-//  }
+  {
+    "NameUser": "Bala T",
+    "UserId": 22,
+    "Price": 300
+  }
 
 ]
